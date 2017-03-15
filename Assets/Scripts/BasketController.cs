@@ -6,14 +6,15 @@ public class BasketController : MonoBehaviour {
 
     public float speed;
     public Vector2 movementRange;
+    ScoreManager scoreManager;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    // Use this for initialization
+    void Awake() {
+        scoreManager = FindObjectOfType<ScoreManager>();
+    }
+
+    // Update is called once per frame
+    void Update() {
 
         var vertical = Input.GetAxis("Vertical");
         var horizontal = Input.GetAxis("Horizontal");
@@ -21,28 +22,20 @@ public class BasketController : MonoBehaviour {
         vertical *= speed;
         horizontal *= speed;
 
-        transform.Translate(new Vector3(horizontal,0F,vertical));
+        transform.Translate(new Vector3(horizontal, 0F, vertical));
 
         var pos = transform.position;
 
-        //if (pos.x <= -movementRange.x) {
-        //    pos.x = -movementRange.x;
-        //} else if(pos.x >= movementRange.x) {
-        //    pos.x = movementRange.x;
-        //}
-
-        //if (pos.z >= movementRange.y) {
-        //    pos.z = movementRange.y;
-        //} else if (pos.z <= -movementRange.y) {
-        //    pos.z = -movementRange.y;
-        //}
-
         var r = movementRange;
         transform.position = new Vector3(Mathf.Clamp(pos.x, -r.x, r.x), pos.y, Mathf.Clamp(pos.z, -r.y, r.y));
-
-        //transform.position = pos;
-
-        
-
     }
+
+    private void OnTriggerEnter(Collider other) {
+        var prim = other.GetComponent<Primitive>();
+        if (prim != null) {
+            scoreManager.AddPoints(prim.points);
+            Destroy(other.gameObject);
+        }
+    }
+
 }
