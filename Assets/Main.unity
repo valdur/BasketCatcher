@@ -161,10 +161,10 @@ RectTransform:
   m_Father: {fileID: 1093067929}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 20, y: 944}
-  m_SizeDelta: {x: -20, y: 945}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 20, y: -20}
+  m_SizeDelta: {x: 300, y: 100}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &521345302
 MonoBehaviour:
@@ -558,6 +558,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e68e1caeb1ca6c240a2b36784752483c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fxPrefab: {fileID: 198153931293386698, guid: fee1de0c8b0b0f24ba311bc1ebb6071e, type: 2}
 --- !u!1 &1922135181
 GameObject:
   m_ObjectHideFlags: 0
