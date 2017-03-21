@@ -8,7 +8,7 @@ public class Floor : MonoBehaviour {
 
     void OnCollisionEnter(Collision col) {
         var fx = Instantiate(fxPrefab, col.transform.position, Quaternion.Euler(-90, 0, 0));
-        Destroy(fx, 1f);
+        Destroy(fx.gameObject, 1f);
         Destroy(col.gameObject);
     }
 }

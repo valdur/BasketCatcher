@@ -37,7 +37,7 @@ public class BasketController : MonoBehaviour {
             scoreManager.AddPoints(prim.points);
 
             var fx = Instantiate(fxPrefab, other.transform.position, Quaternion.Euler(-90,0,0));
-            Destroy(fx, 2f);
+            Destroy(fx.gameObject, 2f);
             Destroy(other.gameObject);
         }
     }
