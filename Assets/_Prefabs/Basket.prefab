@@ -519,6 +519,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eed7caf349d8157488b59f85b959a242, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.2
+  speed: 0.5
   movementRange: {x: 4.5, y: 4.5}
   fxPrefab: {fileID: 198360551613558640, guid: 2e695b1586786d6459c000b58640d8f1, type: 2}
