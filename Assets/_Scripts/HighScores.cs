@@ -14,7 +14,7 @@ public class HighScores : MonoBehaviour {
     public Button newGameButton;
     public Button menuButton;
 
-    public NewHighScoreWidget newHighScoreWidget;
+    public NewHighScoreOverlay newHighScoreOverlay;
 
     public Transform table;
 
@@ -29,9 +29,10 @@ public class HighScores : MonoBehaviour {
     }
 
     void Start() {
-        newHighScoreWidget.gameObject.SetActive(false);
+        newHighScoreOverlay.gameObject.SetActive(false);
         newGameButton.onClick.AddListener(SceneSwitcher.LoadGameplay);
         menuButton.onClick.AddListener(SceneSwitcher.LoadMainMenu);
+        table.gameObject.SetActive(false);
 
         core = BasketCatcherCore.instance;
         newGameButton.gameObject.SetActive(core.justLost);
@@ -47,7 +48,7 @@ public class HighScores : MonoBehaviour {
             }
 
             if (newHighScore > minRecordScore) {
-                newHighScoreWidget.Show(newHighScore, NameSubmitted);
+                newHighScoreOverlay.Show(newHighScore, NameSubmitted);
             } else {
                 LoadTable();
             }
@@ -80,6 +81,8 @@ public class HighScores : MonoBehaviour {
     }
 
     public void LoadTable() {
+        if (highScoreCollection.records.Count > 0)
+            table.gameObject.SetActive(true);
         foreach (var hsr in highScoreCollection.records) {
             var ins = Instantiate(tableRowPrefab, table) as HighScoreTableRow;
             ins.Load(hsr.name, hsr.score);

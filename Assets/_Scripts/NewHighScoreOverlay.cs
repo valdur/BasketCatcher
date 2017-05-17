@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class NewHighScoreWidget : MonoBehaviour {
+public class NewHighScoreOverlay : MonoBehaviour {
 
     public InputField input;
     public Text scoreLabel;

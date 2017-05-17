@@ -18,8 +18,6 @@ public class BasketCatcherCore : MonoBehaviour {
         }
     }
 
-    public enum GameState { Normal, JustLost }
-
     public void SubmitScore(int score) {
         justLost = true;
         lastScore = score;
