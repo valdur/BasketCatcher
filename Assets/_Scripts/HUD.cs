@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Linq;
 
 public class HUD : MonoBehaviour {
 
@@ -15,7 +16,12 @@ public class HUD : MonoBehaviour {
     Text text;
 
     [SerializeField]
+    Text livesText;
+
+    [SerializeField]
     Button backButton;
+
+    
 
     public AbstractTweener tweener;
 
@@ -30,11 +36,18 @@ public class HUD : MonoBehaviour {
 
     void OnEnable() {
         scoreManager.scoreUpdatedEvent += UpdateScore;
+        scoreManager.livesUpdatedEvent += UpdateLives;
         UpdateScore(scoreManager.GetTotalScore());
+        UpdateLives(scoreManager.lives);
     }
 
     void OnDisable() {
         scoreManager.scoreUpdatedEvent -= UpdateScore;
+        scoreManager.livesUpdatedEvent -= UpdateLives;
+    }
+
+    private void UpdateLives(int lives) {
+        livesText.text = "Lives: " + String.Concat(Enumerable.Repeat("♥", lives).ToArray());
     }
 
     void UpdateScore(int score) {

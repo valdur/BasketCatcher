@@ -13,15 +13,7 @@ public class MainMenu : MonoBehaviour {
     public Button quitGameButton;
 
     void Awake() {
-        newGameButton.onClick.AddListener(NewGameButtonHandler);
-        newGameButton.onClick.AddListener(QuitGameButtonHandler);
-    }
-
-    private void QuitGameButtonHandler() {
-        Application.Quit();
-    }
-
-    private void NewGameButtonHandler() {
-        SceneManager.LoadScene(gameplayLevelName);
+        newGameButton.onClick.AddListener(SceneSwitcher.LoadGameplay);
+        quitGameButton.onClick.AddListener(Application.Quit);
     }
 }
