@@ -1,10 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public class Floor : MonoBehaviour {
-
-    public ParticleSystem fxPrefab;
 
     ScoreManager scm;
 
@@ -13,9 +12,12 @@ public class Floor : MonoBehaviour {
     }
 
     void OnCollisionEnter(Collision col) {
-        var fx = Instantiate(fxPrefab, col.transform.position, Quaternion.Euler(-90, 0, 0));
-        Destroy(fx.gameObject, 1f);
-        Destroy(col.gameObject);
-        scm.LoseLife();
+        if (NetworkServer.active) {
+            var prim = col.transform.GetComponent<Primitive>();
+            if (prim) {
+                prim.Explode();
+                scm.LoseLife();
+            }
+        }
     }
 }

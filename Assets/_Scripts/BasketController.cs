@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class BasketController : MonoBehaviour {
+public class BasketController : NetworkBehaviour {
 
     public float speed;
     public Vector2 movementRange;
@@ -12,33 +13,34 @@ public class BasketController : MonoBehaviour {
     // Use this for initialization
     void Awake() {
         scoreManager = FindObjectOfType<ScoreManager>();
+
     }
 
     // Update is called once per frame
     void Update() {
+        if (isLocalPlayer) {
+            var vertical = Input.GetAxis("Vertical");
+            var horizontal = Input.GetAxis("Horizontal");
 
-        var vertical = Input.GetAxis("Vertical");
-        var horizontal = Input.GetAxis("Horizontal");
+            vertical *= speed;
+            horizontal *= speed;
 
-        vertical *= speed;
-        horizontal *= speed;
+            transform.Translate(new Vector3(horizontal, 0F, vertical));
 
-        transform.Translate(new Vector3(horizontal, 0F, vertical));
+            var pos = transform.position;
 
-        var pos = transform.position;
-
-        var r = movementRange;
-        transform.position = new Vector3(Mathf.Clamp(pos.x, -r.x, r.x), pos.y, Mathf.Clamp(pos.z, -r.y, r.y));
+            var r = movementRange;
+            transform.position = new Vector3(Mathf.Clamp(pos.x, -r.x, r.x), pos.y, Mathf.Clamp(pos.z, -r.y, r.y));
+        }
     }
 
     private void OnTriggerEnter(Collider other) {
-        var prim = other.GetComponent<Primitive>();
-        if (prim != null) {
-            scoreManager.AddPoints(prim.points);
-
-            var fx = Instantiate(fxPrefab, other.transform.position, Quaternion.Euler(-90,0,0));
-            Destroy(fx.gameObject, 2f);
-            Destroy(other.gameObject);
+        if (isServer) {
+            var prim = other.GetComponent<Primitive>();
+            if (prim != null) {
+                scoreManager.AddPoints(prim.points);
+                prim.Fireworks();
+            }
         }
     }
 

@@ -22,13 +22,13 @@ public class ScoreManager : MonoBehaviour {
     }
 
     public void LoseLife() {
-        lives--;
-        if (livesUpdatedEvent != null)
-            livesUpdatedEvent(lives);
+        //lives--;
+        //if (livesUpdatedEvent != null)
+        //    livesUpdatedEvent(lives);
 
-        if (lives <= 0) {
-            BasketCatcherCore.instance.SubmitScore(totalScore);
-            SceneSwitcher.LoadHighScores();
-        }
+        //if (lives <= 0) {
+        //    BasketCatcherCore.instance.SubmitScore(totalScore);
+        //    SceneSwitcher.LoadHighScores();
+        //}
     }
 }
